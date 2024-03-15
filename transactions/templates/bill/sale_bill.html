@@ -1,0 +1,200 @@
+{% extends bill_base %}
+{% load static %}
+
+{% block title %} विक्री बिल नं: {{ bill.billno }}{% endblock title %}
+
+{% block content %}
+
+    <style>
+    .bg {
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    .outer-box {
+        border-collapse: collapse;
+    }
+
+    .inner-box {
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    .align-middle {
+        vertical-align: middle;
+    }
+    </style>
+
+    <div style="color:#575757; font-style: bold; font-size: 3rem;  border-bottom: 1px solid white;">विक्री बिल नं: {{ bill.billno }}</div>
+
+    <form method="post">
+    {% csrf_token %}
+
+        <div class="bg">
+
+            <br>
+
+            <div id="printArea" class="bg">
+
+                <table class="outer-box inner-box" style="width: 840px; margin-left: auto; margin-right: auto;">
+                    <tbody>
+                    
+                        <tr style="height: 1px;">
+                            <td> <p style="text-align: center;">कर विवरण - विक्री</p> </td>
+                        </tr>
+                    
+                        <tr style="text-align: center;">
+                            <td >
+                                <span style="font-size: 350%;">कृषिसाथी</span> <br>
+                                <span style="font-size: 120%; font-weight: bold;">विक्रेता : उत्पादनहरु</span> <br>
+                                <span style="font-weight: bold;">पंजिकृत ठेगाना :</span> पाँचखाल, काभ्रे<br>
+                                <span style="font-weight: bold;">ईमेल : krishisathi@gmail.com</span> <br><br>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td>
+                            <table class="outer-box" style="width: 800px; margin-left: auto; margin-right: auto;">
+                                <tbody>
+                                    <tr>
+                                        <td class="inner-box" style="text-align: center; font-weight: bold;" colspan="3">GSTIN नं - १२३४५६७८९क्यास्ट्रो</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="width: 50%; font-weight: bold;">&nbsp;खरीदारको नाम</td>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;बिल नं</td>
+                                        <td class="inner-box" style="width: 25%;">&nbsp;{{ bill.billno }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="width: 50%;">&nbsp;{{ bill.name }}</td>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;मिति</td>
+                                        <td class="inner-box" style="width: 25%;">&nbsp;{{ bill.time.date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="width: 50%;" rowspan="3">{{ bill.address|linebreaks }}</td>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;ई-वे नं</td>
+                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="eway" class="align-middle" style="border: 0; overflow: hidden;" value="{% if billdetails.eway %}{{ billdetails.eway }}{% endif %}"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;गाडी नं</td>
+                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="veh" class="align-middle" style="border: 0; overflow: hidden;" value="{% if billdetails.veh %}{{ billdetails.veh }}{% endif %}"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;गन्तव्य</td>
+                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="destination" class="align-middle" style="border: 0; overflow: hidden;" value="{% if billdetails.destination %}{{ billdetails.destination }}{% endif %}"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="font-weight: bold;">&nbsp;GSTIN नं : {{ bill.gstin }} </td>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;पीओ नं &amp; मिति</td>
+                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="po" class="align-middle" style="border: 0; overflow: hidden;" value="{% if billdetails.po %}{{ billdetails.po }}{% endif %}"> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                            <table class="outer-box" style="width: 800px; margin-left: auto; margin-right: auto;">
+                                <tbody>
+                                    <tr>
+                                        <td class="inner-box" style="width: 5%; font-weight: bold; text-align: center;">&nbsp;क्र.</td>
+                                        <td class="inner-box" style="width: 30%; font-weight: bold; text-align: center;">उत्पादनहरु</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">&nbsp;एचएसएन/एसएसएक</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">मात्रा मिट्र</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">मूल्य प्रति मात्रा</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">रकम रु.</td>
+                                        <td class="inner-box" style="width: 5%; font-weight: bold; text-align: center;">प्रति</td>
+                                    </tr>
+                                    {% for item in items %}
+                                        <tr style="height: auto;">
+                                            <td class="inner-box" style="width: 5%;">&nbsp; {{ forloop.counter }}</td>
+                                            <td class="inner-box" style="width: 30%;">&nbsp; {{ item.stock.name }}</td>
+                                            <td class="inner-box" style="width: 12%;"></td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ item.quantity }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ item.perprice }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp;{{ item.totalprice }}</td>
+                                            <td class="inner-box" style="width: 5%;">&nbsp;0</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                            <table class="outer-box inner-box" style="width: 800px; margin-left: auto; margin-right: auto;">
+                                <tbody>
+                                    <tr>
+                                        <td class="inner-box" style="width: 35%; text-align: center;" rowspan="6">
+                                            <p> <span style="font-weight: bold;">बैंक विवरण <br> कोडएस्ट्रो</span> <br>
+                                                पश्चिम दृष्टि बैंक <br> एसी नं -५४ए७ ६एस ३१ ४टी ८५ ०रो३ <br> आईएफएससी कोड - एबीसीडी ०१० ०११० <br> सीएस शाखा <br> फोन नं - ५४१-०१०-०४००</p>
+                                        </td>
+                                        <td class="inner-box" style="width: 30%; font-weight: bold;">&nbsp;सीजीएसटी @ २.५%</td>
+                                        <td class="inner-box align-middle" style="width: 30%;">&nbsp; <input type="text" name="cgst" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.cgst %}{{ billdetails.cgst }}{% endif %}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="font-weight: bold;">&nbsp;एसजीएसटी @ २.५%</td>
+                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="sgst" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.sgst %}{{ billdetails.sgst }}{% endif %}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="font-weight: bold;">&nbsp;आईजीएसटी @ ५% </td>
+                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="igst" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.igst %}{{ billdetails.igst }}{% endif %}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="font-weight: bold;">&nbsp;सेस @ ४००/मिट्र </td>
+                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="cess" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.cess %}{{ billdetails.cess }}{% endif %}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="font-weight: bold;">&nbsp;टिसीएस @ १%</td>
+                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="tcs" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.tcs %}{{ billdetails.tcs }}{% endif %}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="font-weight: bold;">&nbsp;कुल</td>
+                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="total" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.total %}{{ billdetails.total }}{% endif %}"> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align: right;">
+                                <span style="font-weight: bold;">कम्पनीको लागि <br><br><br><br> हस्ताक्षर</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align: center;">
+                                <!-- FINAL TEXT -->
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <div class="wrapper">
+            <button class="center btn btn-primary" onclick="printpage('printArea')">प्रिन्ट</button>
+            <button class="center btn btn-success" type="submit">ड्राफ्ट सेभ गर्नुहोस्</button>
+            <a href="{% url 'sales-list' %}" class="btn center btn-secondary">फर्क</a>
+        </div>
+    
+    </form>
+    
+    <script>
+        function printpage(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }       
+    </script>
+
+{% endblock %}
