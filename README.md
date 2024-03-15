@@ -1,72 +1,81 @@
-# Animal Detection Using Deep Learning
+# KrishiSathi: Empowering Farmers with Smart Technologies
+
+## Team: The Kripples
+
+### Overview
+KrishiSathi is a project developed by a dynamic team of B.Tech students in Artificial Intelligence from Kathmandu University, Nepal. Our goal is to assist Nepalese farmers in optimizing farm management, increasing productivity, and maximizing profitability through the integration of artificial intelligence (AI) technologies.
+
+### Key Features
+1. **Personalized Dashboard:** We provide a user-friendly interface for farmers to track their income, expenses, and overall farm performance efficiently.
+2. **Crop Price Monitoring:** Farmers can access daily crop prices from local markets and trading centers, aiding in informed decision-making regarding sales and purchases.
+3. **Livestock Management:** Our platform includes a module for farmers to input and track information about their livestock, such as breed, age, and health status, facilitating better animal care and management.
+
+### Future Prospects
+We aim to further enhance KrishiSathi by developing a Computer Vision Model to automate tasks like animal counting, providing even greater support to farmers in their day-to-day activities.
+
+### Contributors
+- Anjila Subedi: Backend Development & AI Enthusiast
+- Aagaman Bhattarai: Mobile App Development & NLP Specialist
+- Nawap Bastola: AI Expert & API Developer
+- Siddhartha Devkota: Frontend Development & NLP Integration Specialist
+
+### Motivation
+KrishiSathi is inspired by the need to uplift Nepalese farmers, particularly small and medium-scale ones, who face challenges in optimizing labor, tracking income, and accessing market information. By harnessing the power of AI, we strive to empower farmers and contribute to the growth of Nepal's agricultural sector.
 
 
-## Overview
+# Animal Sight - Animal Detection System
 
-Welcome to the Animal Detection project. This is the deep learning boject detection model that was trained to detect various stray and wild animals that we might encounter. I have fine-tuned MobileNet object detection model provided by "TensorFlow Object Detection API" to detect different animals.
-
-Video from various sources can be inferenced using this Object Detection model. The model expects images and videos in the format **[ 1, height, weidth, channel ]**. This code based is designed for video processing, and if you want to use it to inference image data you need to make changes yourself as of your need.
-
-## Table of Contents
-
-- **[data](data):**
-    <p>This folder contains, test data for the model.</p>
-
--  **[mobilenet](mobilenet):**
-
-    <p>This folder contains all the model weights and fingerprints for it to perform inference on the data.</p>
-
-- **detection.py:**
-
-    <p>contains code for loading model, preprocessing data, running inference and displaying the result.</p>
-
-- **main.py:**
-
-    <p>contains code for loading video, calls various functions in detection to perform the detection.</p>
-
-- **requirements.txt:**
-
-    <p>this file contains all reqirements that this projects needs to run successfully.</p>
-
-## Installation
-
-To run this project in your computer clone this repository perform following tasks: 
-
-1. Start a python virtual environment using command 
-<br> For Linux <br>
-<code> python3 -m venv venv </code>
-<br> For Windows <br>
-<code> python -m venv venv </code>
-<br>
-You can also use anaconda too create the virtual environmment.<br>
-
-2. Navigate to the repository and start the environment. After initializing, run following command<br>
-<code> pip install -r requirements.txt </code>
-
-3. Once the installition of requirements is cou complete you can run it in your computer. Initially i have provided test video. To test it you can just run the following command:<br>
-<code> python main.py </code>
-<br>
-This should get you going
-
-Note: If you want to run inference on your own data then you need to change file path in **main.py** line **8**.
+The Animal Sight - Animal Detection System is a technology-driven solution designed to address the challenges posed by human-animal conflicts in wildlife-rich areas. By leveraging surveillance cameras, machine learning algorithms, and real-time alerting mechanisms, the system aims to detect and mitigate potential conflicts between humans and wildlife, thereby enhancing safety, reducing economic losses, and promoting coexistence.
 
 ## Features
 
-It is able to detect and classify various wild domestic and wild animals with high level of accuracy. It has following classes of animals:
+### Object Detection
+Utilizes machine learning-based object detection algorithms to identify various animal species, including potential intruders, across multiple surveillance cameras.
 
-1. boar
-2. buffalo
-3. cow/bull
-4. dog
-5. elephant
-6. leopard
-7. monkey
-8. snake
-9. tiger
+### Real-time Alerting
+Triggers instant alerts via SMS notifications to concerned authorities, farmers, or property owners upon detecting intruding animals, enabling timely intervention to prevent conflicts.
 
-It can be used in places where **human animal conflict** is common occurance as a early warninng system. Running inference using CCTV camera and detecting animals can be vary useful.
+### Centralized Data Management
+Stores detection event data, including timestamps, camera IDs, geolocations, and detected classes, in a centralized database for easy access, retrieval, and analysis.
 
-## Credits
+### Scalability and Flexibility
+Designed to scale and adapt to different environmental conditions and user requirements, with customizable alert parameters and support for additional cameras and features.
 
-Special thanks to my classmates [Navin](https://github.com/navin123456789) and [Pranjal](https://github.com/Pranjalpok7) for helping me with this project. They were very helpful in cleaning and annotating the
-image dataset that was used to train this object detection model.
+## How to Use
+
+### Installation
+
+1. Clone the repository:
+
+3. Configure Firebase credentials:
+- Replace Firebase credentials and database URL with your own values in `YOUR-DB-firebase-adminsdk-......json`.
+
+4. Install Tensorflow 2 Object Detection API:
+- Note: Tensorflow<=2.12 version is supported for this.
+
+### Run the Application
+
+1. Set FLASK_APP environment variable:
+- Set the FLASK_APP environment variable to the name of your Flask application file (without the .py extension). You can do this in your terminal or command prompt before running `flask run`.
+  ```
+  set FLASK_APP=your_app_name
+  ```
+
+2. Run Flask:
+- After setting the FLASK_APP environment variable, try running Flask again:
+  ```
+  flask run
+  ```
+
+- Or without setting up FLASK_APP environment variable, simply run:
+  ```
+  python app.py
+  ```
+
+## Information about ML Model
+
+The ML model used to detect the objects in a video feed is MobileNetV2. The dataset used to train the model was scraped from these sources: Pexels and 123rf.
+
+
+
+
